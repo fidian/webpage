@@ -1,0 +1,55 @@
+HELP
+
+The purpose of the webpage grabber is to allow users who only have
+e-mail access to the internet to retreive resources from the internet.
+This is acheived by an automatic response robot which parses e-mail
+messages and sends back the requested documents. This program has the
+ability to:
+
+	1. Search the internet 
+	2. Retreive web pages 
+	3. Send locally stored files 
+
+
+To get an index of all the files available send a message to
+webpage@rumkin.com and in the subject put: send index
+
+To request a web page that is converted to text:
+To: webpage@rumkin.com
+Subject: url <ADDRESS>
+
+To request the HTML source of a web page:
+To: webpage@rumkin.com
+Subject: source <ADDRESS>
+
+To ask for a web page and all of the associated images, etc. (up to 1Mb)
+in one zip file:
+To: webpage@rumkin.com
+Subject: webpage <ADDRESS>
+
+To search the internet with Google (returns 50 matches):
+To: webpage@rumkin.com
+Subject: search <KEYWORDS>
+
+Replace keywords with your search terms with spaces converted to +'s
+(ie. "high school" --> high+school).
+
+
+You can not download binary files directly with the webpage grabber.  So,
+don't try to download MP3 files or Zip file archives.  Also, the "webpage"
+command is limited to 1Mb to prevent abuse.
+
+
+If you want to get the web page in your email so that you can view it, see
+the images, and maybe click the links, you are out of luck.  This web page
+grabber can not do that.  The closest thing is the "webpage" command, which
+will grab up to 1Mb of stuff and zip it all up for you.
+
+There are other services out there that do a similar task.  One list has not
+been updated since 2003, but shows several servers:
+    http://www.expita.com/servers.html
+Also, you could check out http://vancouver-webpages.com/webgate/ for
+information on Webgate (a similar type of server).
+
+
+Contact the service administrator:  webpage-admin@rumkin.com

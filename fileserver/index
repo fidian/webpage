@@ -1,0 +1,46 @@
+INDEX
+
+In order to retrieve one of the files below you put the command in the
+SUBJECT.  Don't put it anywhere else but the SUBJECT.  It won't work if
+you put it in your toaster, sink or a different e-Mail header than the
+SUBJECT.
+
+Syntax for retrieving files:
+        TO: webpage@rumkin.com
+        Subject: send <FILENAME>
+        (where <FILENAME> is the file)
+
+        !! Suggestions for files are welcomed. !!
+
+Comments, Problems or Suggestions?
+Email webpage-admin@rumkin.com
+
+ -------------------------------------------------------------------
+
+badfile         The standard error message :-)
+
+bdecod          Boogies Decoder will decode B64, C91, UUE, and XXE files
+                Sent UUEncoded.  See "muud" for a decoder.
+
+help            Help File for this bot.
+
+index           This file
+
+netrun31        DOS program to encode COM or EXE files as executable text
+                files, safe to send over email.  This is sent UUEncoded.
+                See "muud" for a decoder.
+
+netsend1        DOS program to encode any file as an executable text file.
+                When ran, the program generates the original file.
+                This file is sent UUEncoded.  See "muud" for a decoder.
+
+muud            Mini UUDecoder.  This is an executable text file!  Save this
+                with your favorite text editor and you get a working program.
+                Use this until you get a better decoder, like bdecod.
+
+procmailrc      The procmailrc file for this bot.  If you don't know
+                what this is, you probably don't want it.
+
+uudecode        Forum post that provides a very short decoder in text form,
+                which can change any UUEncoded file into a self-decoding
+                program.

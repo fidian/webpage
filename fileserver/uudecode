@@ -1,0 +1,69 @@
+Newsgroups: comp.compression
+Path: sparky!uunet!zaphod.mps.ohio-state.edu!cs.utexas.edu!torn!nott!cunews!freenet.carleton.ca!Freenet.carleton.ca!ab760
+From: ab...@Freenet.carleton.ca (Patrick Beirne)
+Subject: Tiny UUDECODE executable...as ASCII text
+Message-ID: <1993Mar7.050518.15646@freenet.carleton.ca>
+Sender: ne...@freenet.carleton.ca (News Administrator)
+Reply-To: ab...@Freenet.carleton.ca (Patrick Beirne)
+Organization: The National Capital Freenet
+Date: Sun, 7 Mar 1993 05:05:18 GMT
+Lines: 63
+
+
+To all,
+
+I've just developed a thing that some of you might be interested in.
+
+The 5 lines of garbled text at the end of this msg is in fact an MSDOS
+executable UUDECODE header. Just prepend it to a UUENCODE 
+text file, starting at the '%!!...' and rename the file with a .COM 
+extension.
+
+USAGE
+If this executable text cluster is inserted into a mail message before the
+UUENCODE data, it's possible to give the user instructions on how
+to use a word processor to extract the executable+uue_data to form a
+self-extracting .COM file.
+
+FEATURES
+The executable text cluster is only 400 bytes long. It is immune to CR/LF
+mangling that often happens between internet and MSDOS machines.
+This text cluster contains no space characters, so that word processors
+will not try to wrap the lines.
+
+TECHNICAL 
+The first line MUST NOT be broken; it's the level 1
+boot loader. It is real 8086 code, using only 0x21-0x7E.
+
+The other lines must contain an even number. This is the level
+2 loader. This section can tolerate CR <-> CR/LF mangling. This
+section contains encoded machine code, with each byte of machine
+code represented by 2 bytes of ASCII.
+
+This UUDECODEr handles 'begin'-'end' sequences only, one file
+per decode. The output filename MUST be included in the UUENCODEd
+data, as the third field on the 'begin' line. The .COM file must
+be executed in the same directory where you want the output file.
+
+REQUEST
+I have take this to the point that it's working. If anyone is
+interested in adding some 'polish' to it, the source code is 
+available.
+
+If this project is of interest, either for your use, or
+for enhancement, please contact me.
+
+Pat Beirne
+patb@corel.ca
+
+------cut here-----
+%!!%@@P^5!@5iAP[5)A5ZAP_VX5!@(%('5hAP[S_VX4C,P,PPZVX2'=!!Cr6*'*'C!50%GJu)>!
+IEvsD!CEA!A!:EL!4!8EmET!qsG!#sHsKs[s5!BEb!B!5!8E4!8E5!8E4!8E
+mE[sqsaEms9!6E~!p!Ys=!4sPEF!B!m!SE>E~!WEc!XsFsPEF!L!qsbE4sms9!
+:EL!CEA!A!4!8EmE1sms9!6E~!KsZs*sn!b!XssEf!%sZs~!l!nEqsRE7s;ED!7E
+o!b!b!~!@sYso!f!%s\EnE]EJE,EB!C!xs7Eo!b!b!\EnE]EREf!Q!D!PE-EC!C!
+>E&sCEE!B!DEB!C!WEc!?sXsM!issEE!]sTEuE3E>E$sWEc!>E2sWEc!B!B!B!
+------end of executable header----
+...put your .UUE file here...
+
+-- 

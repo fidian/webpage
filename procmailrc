@@ -1,0 +1,173 @@
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/lib:/usr/sbin
+VERBOSE=no
+WEBPAGEDIR=$HOME/webpage
+MAILDIR=$WEBPAGEDIR/
+PMDIR=$WEBPAGEDIR/procmail
+LOGFILE=$WEBPAGEDIR/procmail.log
+LOGABSTRACT=no
+MYNAME="Webpage Grabber"
+MYEMAIL=webpage@rumkin.com
+URLPROG=$WEBPAGEDIR/url.pl
+WEBPAGEPROG=$WEBPAGEDIR/get_page
+TIMEOUTPROG=$WEBPAGEDIR/timeout
+NEWLINE="
+"
+LOG=$NEWLINE
+LOG="    Date: `date`$NEWLINE"
+WHOFROM=`formail -xFrom: \
+  | expand \
+  | sed -e 's/  */ /g' \
+  | sed -e 's/^[ ]*//g' -e 's/[ ]*$//g'`
+LOG="    From: $WHOFROM$NEWLINE"
+
+:0 Wc
+* ^Subject: \/.*
+{
+	LOG="    Subject: $MATCH$NEWLINE"
+	:0
+	/dev/null
+}
+
+:0 W
+* ^X-Loop: $\MYEMAIL
+{
+	LOG="    Rule: Loop (/dev/null)$NEWLINE"
+	:0
+	/dev/null
+}
+
+:0 W
+* ^Subject:.*bulk email.*
+{
+	LOG="    Rule: Bulk Email (/dev/null)$NEWLINE"
+	:0
+	/dev/null
+}
+
+:0 W
+* ^Subject:.*Re:.*
+{
+	LOG="    Rule: Reply (/dev/null)$NEWLINE"
+	:0
+	/dev/null
+}
+
+:0 W
+* ^FROM_DAEMON
+{
+	LOG="    Rule: From Daemon (/dev/null)$NEWLINE"
+	:0
+	/dev/null
+}
+
+:0 W
+* ^Reply-[Tt]o:.*noreply@.*
+{
+	LOG="    Rule: Noreply (/dev/null)$NEWLINE"
+	:0
+	/dev/null
+}
+
+:0 W
+* ^Subject: send [0-9a-z]
+* !^Subject: send .*(/|\.\.)
+{
+	LOG="    Rule: Send$NEWLINE"
+	MAILDIR=$WEBPAGEDIR/fileserver
+	:0 fhw
+	* ^Subject: send \/[^ ]*
+        | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
+	FILE="$MATCH"
+
+	:0 Wah
+	| cat - $FILE 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
+
+	:0 E
+	| cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
+}
+
+:0 W
+* ^Subject: url [0-9A-Za-z_:/.\]*
+{
+	LOG="    Rule: Url$NEWLINE"
+	MAILDIR=$WEBPAGEDIR/fileserver
+	
+	:0 fhw
+	* ^Subject: url \/[^ ]*
+        | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
+	FILE="$MATCH"
+
+	:0 Wah
+	| ($TIMEOUTPROG 30 perl $URLPROG -t $FILE 2>&1 || cat - badfile) | $SENDMAIL -oi -t
+	LOG="`cat /tmp/webmail.time`$NEWLINE"
+
+	:0 E
+	| cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
+}
+
+:0 W
+* ^Subject: source [0-9A-Za-z_:/.\]*
+{
+	LOG="    Rule: Source$NEWLINE"
+	MAILDIR=$WEBPAGEDIR/fileserver
+	:0 fhw
+	* ^Subject: source \/[^ ]*
+        | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
+	FILE="$MATCH"
+
+	:0 Wah
+	| ($TIMEOUTPROG 30 perl $URLPROG -s $FILE 2>&1 || cat - badfile) | $SENDMAIL -oi -t
+	LOG="`cat /tmp/webmail.time`$NEWLINE"
+
+	:0 E
+	| cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
+}
+
+:0 W
+* ^Subject: webpage [0-9A-Za-z_:/.\]*
+{
+	LOG="    Rule: Webpage$NEWLINE"
+	MAILDIR=$WEBPAGEDIR/fileserver
+
+	:0 fhw
+	* ^Subject: webpage \/[^ ]*
+        | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
+	FILE="$MATCH"
+	LOG="    Webpage: $FILE$NEWLINE"
+
+	:0 Wah
+	| ($WEBPAGEPROG $FILE 2>&1) | $SENDMAIL -oi -t
+
+	:0 E
+	| cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
+}
+
+:0 W
+* ^Subject: search [-0-9A-Za-z_:/\.\\\+]*
+{
+	LOG="    Rule: Search$NEWLINE"
+	MAILDIR=$WEBPAGEDIR/fileserver
+
+	:0 fhw
+	* ^Subject: search \/[^ ]*
+        | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
+	FILE="$MATCH"
+
+	:0 Wah
+	| ($TIMEOUTPROG 30 perl $URLPROG -t http://google.com/search?num=50\&q=$FILE 2>&1 || cat badfile) | $SENDMAIL -oi -t
+
+	:0 E
+	| cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
+}
+
+:0 W
+{
+	LOG="    Rule: Unhandled Command$NEWLINE"
+	MAILDIR=$WEBPAGEDIR/fileserver
+
+	:0 fhw
+	| formail -ra "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
+	
+	:0 h
+	| cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
+}

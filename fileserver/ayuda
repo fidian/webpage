@@ -1,0 +1,47 @@
+AYUDA
+
+El propósito de la página web capturador es permitir a los usuarios que sólo
+tienen acceso al correo electrónico a la internet es posible recuperar los
+recursos de Internet.  Esto se archiva por un robot de respuesta automática
+que analiza el correo electrónico de mensajes y envía los documentos
+solicitados. Este programa tiene la capacidad para :
+
+        1 . Buscar en la Internet
+        2 . Descargar páginas web
+        3 . Enviar archivos almacenados localmente
+
+
+Para obtener un índice de todos los archivos disponibles Enviar un mensaje a
+webpage@rumkin.com y en el asunto poner : send index
+
+Para solicitar una página web que se convierte en texto :
+A: webpage@rumkin.com
+Asunto: url <DIRECCIÓN>
+
+Para solicitar el código fuente HTML de una página web :
+A: webpage@rumkin.com
+Asunto: source <DIRECCIÓN>
+
+Para solicitar una página web y todas las imágenes asociadas , etc (hasta
+1Mb ) en un archivo zip :
+A: webpage@rumkin.com
+Asunto: webpage <DIRECCIÓN>
+
+Para buscar en Internet con Google (devuelve 50 partidos ) :
+A: webpage@rumkin.com
+Asunto : search <PALABRAS>
+
+Reemplazar palabras clave con los términos de búsqueda con espacio convertido
+en + ' s (es decir, "escuela secundaria" -> "escuela+secundaria") .
+
+No se puede descargar archivos binarios directamente con el capturador de
+página web. Por lo tanto , no trate de descargar archivos MP3 o archivos de
+archivos zip . Asimismo, la "webpage" se limita a 1Mb para evitar abusos.
+
+Si desea obtener la página web en su correo electrónico para que pueda
+verla , es hora de utilizar nuestros comandos .Usted no puede acceder a los
+links de la paginas.  Lo más parecido es el comando "webpage", que se
+agarra hasta 1Mb de cosas y comprimir todo por usted.
+
+
+Póngase en contacto con el administrador del servicio: webpage-admin@rumkin.com

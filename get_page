@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# Pipe formmail headers into this
+
+# Reprocess formmail headers
+cat | sed "/^$/d"
+
+FILE="f_$$"
+DIR="d_$$"
+mkdir "$DIR"
+
+(
+    cd $DIR
+    ../timeout 30 wget -U "" -q --tries=1 --restrict-file-names=windows \
+        --quota=1024k -nd -E -k -p -H -q -- "$1" > /dev/null 2>&1
+    C=`find . -iname \*.htm -or -iname \*.html | wc -l`
+
+    if [[ "$C" == "0" ]]; then
+        rm -f *
+        cp ../message.html .
+    fi
+
+    zip -9 ../${FILE}.zip * > /dev/null 2>&1
+)
+
+rm -rf "$FILE" "$DIR"
+
+mime-construct --output --type application/zip --attachment webpage.zip \
+   --file ${FILE}.zip
+   
+rm ${FILE}.zip
