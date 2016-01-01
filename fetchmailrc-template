@@ -1,5 +1,5 @@
 set daemon 60
-set logfile /home/user/webpage/fetchmail
+set logfile /home/user/webpage/logs/fetchmail
 
 poll pop.gmail.com
         protocol POP3

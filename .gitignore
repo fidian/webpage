@@ -1,3 +1,3 @@
 fetchmailrc
-fetchmail.log
-procmail.log
+logs/fetchmail.log
+logs/procmail.log
