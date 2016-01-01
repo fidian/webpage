@@ -20,8 +20,27 @@ WHOFROM=`formail -xFrom: \
     | sed -e 's/^[ ]*//g' -e 's/[ ]*$//g'`
 LOG="    From: $WHOFROM$NEWLINE"
 
+
+# Magic code to decode escaped subject lines for our friendly international
+# users!  It is in two parts.  First, assign the SUBJECT variable a decoded
+# version of an encoded subject line.  Secondly, if the first one fails,
+# store the regular subject line into SUBJECT.  From there on, just use
+# "SUBJECT ??" when you want to match on the Subject header.
+#
+# http://stackoverflow.com/questions/29715013/decode-the-utf8-to-iso-8859-1-mail-subject-to-text-in-procmailrc-file
+
+# Store "may be encoded" Subject: into SUBJECT
+:0 h
+* ^Subject:.*=\?
+SUBJECT=| formail -cXSubject: | perl -MEncode -pe '$_=encode("iso-8859-1",decode("MIME-Header",$_))'
+
+# Store all remaining cases of Subject: into SUBJECT
+:0 hE
+SUBJECT=| formail -cXSubject
+
+# Log the subject
 :0 Wc
-* ^Subject: \/.*
+* SUBJECT ?? ^Subject: \/.*
 {
     LOG="    Subject: $MATCH$NEWLINE"
     :0
@@ -43,7 +62,7 @@ LOG="    From: $WHOFROM$NEWLINE"
 }
 
 :0 W
-* ^Subject:.*bulk email.*
+* SUBJECT ?? ^Subject:.*bulk email.*
 {
     LOG="    Rule: Bulk Email (/dev/null)$NEWLINE"
     :0
@@ -51,7 +70,7 @@ LOG="    From: $WHOFROM$NEWLINE"
 }
 
 :0 W
-* ^Subject:.*Re:.*
+* SUBJECT ?? ^Subject:.*Re:.*
 {
     LOG="    Rule: Reply (/dev/null)$NEWLINE"
     :0
@@ -78,8 +97,8 @@ LOG="    From: $WHOFROM$NEWLINE"
 # And here are the rules for each of the available commands.
 
 :0 W
-* ^Subject: send [0-9a-z]
-* !^Subject: send .*(/|\.\.)
+* SUBJECT ?? ^Subject: send [0-9a-z]
+* SUBJECT ?? !^Subject: send .*(/|\.\.).*
 {
     LOG="    Rule: Send$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
@@ -97,7 +116,7 @@ LOG="    From: $WHOFROM$NEWLINE"
 }
 
 :0 W
-* ^Subject: url [0-9A-Za-z_:/.\]*
+* SUBJECT ?? ^Subject: url [0-9A-Za-z_:/.\]*
 {
     LOG="    Rule: Url$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
@@ -115,7 +134,7 @@ LOG="    From: $WHOFROM$NEWLINE"
 }
 
 :0 W
-* ^Subject: source [0-9A-Za-z_:/.\]*
+* SUBJECT ?? ^Subject: source [0-9A-Za-z_:/.\]*
 {
     LOG="    Rule: Source$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
@@ -133,7 +152,7 @@ LOG="    From: $WHOFROM$NEWLINE"
 }
 
 :0 W
-* ^Subject: webpage [0-9A-Za-z_:/.\]*
+* SUBJECT ?? ^Subject: webpage [0-9A-Za-z_:/.\]*
 {
     LOG="    Rule: Webpage$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
@@ -152,7 +171,7 @@ LOG="    From: $WHOFROM$NEWLINE"
 }
 
 :0 W
-* ^Subject: webpage [0-9A-Za-z_:/.\]*
+* SUBJECT ?? ^Subject: search [-0-9A-Za-z_:/\.\\\+]*
 {
     LOG="    Rule: Search$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
