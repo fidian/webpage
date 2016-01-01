@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+SUBJECT="$1"
+SENDER=$(echo "$2" | sed 's/.*<//' | sed 's/>.*//')
+PARAM=${SUBJECT:6}
+ADMIN_EMAIL=fidian@rumkin.com
+IS_ADMIN=false
+
+if [[ "$SENDER" == "$ADMIN_EMAIL" ]]; then
+    IS_ADMIN=true
+fi
+
+cat <<EOF
+Debug Information - $(date)
+
+$(uptime)
+
+$(df -h)
+
+
+EOF
+
+if ! $IS_ADMIN; then
+    # Show recent logs but filter email addresses
+    echo "Last Few Requests"
+    echo "-----------------"
+    echo ""
+    tail -n 100 logs/procmail.log | sed 's/@.*/@.../g'
+elif [[ -z "$PARAM" ]]; then
+    # Admin: Show unfiltered recent logs
+    echo "Last Few Requests"
+    echo "-----------------"
+    echo ""
+    tail -n 400 logs/procmail.log
+else
+    # Admin: Find logs matching a query
+    echo "Recent Results For $PARAM"
+    echo "------------------------------------------------------------------"
+    echo ""
+    grep --before-context=1 --after-context=4 "^    From:.*$PARAM" logs/procmail.log
+fi

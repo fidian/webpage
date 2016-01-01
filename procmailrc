@@ -10,6 +10,7 @@ MYEMAIL=webpage@rumkin.com
 URLPROG=$WEBPAGEDIR/url.pl
 WEBPAGEPROG=$WEBPAGEDIR/get_page
 TIMEOUTPROG=$WEBPAGEDIR/timeout
+DEBUGPROG=$WEBPAGEDIR/debug
 NEWLINE="
 "
 LOG=$NEWLINE
@@ -189,21 +190,21 @@ SUBJECT=| formail -cXSubject
 }
 
 :0 W
-* ^Subject: search [-0-9A-Za-z_:/\.\\\+]*
+* SUBJECT ?? ^Subject: debug( [^ ]*)?
 {
-	LOG="    Rule: Search$NEWLINE"
-	MAILDIR=$WEBPAGEDIR/fileserver
+    LOG="    Rule: Debug$NEWLINE"
+    MAILDIR=$WEBPAGEDIR
 
-	:0 fhw
-	* ^Subject: search \/[^ ]*
-        | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
-	FILE="$MATCH"
+    :0 fhw
+    * ^Subject: debug( [^ ]*)?
+    | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
+    PARAM="$MATCH"
 
-	:0 Wah
-	| ($TIMEOUTPROG 30 perl $URLPROG -t http://google.com/search?num=50\&q=$FILE 2>&1 || cat badfile) | $SENDMAIL -oi -t
+    :0 Wah
+    | (cat -; $DEBUGPROG "$PARAM" "$WHOFROM") 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
 
-	:0 E
-	| cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
+    :0 E
+    | cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
 }
 
 :0 W
