@@ -128,7 +128,7 @@ SUBJECT=| formail -cXSubject
     FILE="$MATCH"
 
     :0 Wah
-    | ($TIMEOUTPROG 30 perl $URLPROG -t $FILE 2>&1 || cat - badfile) | $SENDMAIL -oi -t
+    | (cat - && $TIMEOUTPROG 30 $URLPROG -t $FILE 2>&1 || cat - badfile) | $SENDMAIL -oi -t
 
     :0 E
     | cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
@@ -146,7 +146,7 @@ SUBJECT=| formail -cXSubject
     FILE="$MATCH"
 
     :0 Wah
-    | ($TIMEOUTPROG 30 perl $URLPROG -s $FILE 2>&1 || cat - badfile) | $SENDMAIL -oi -t
+    | (cat - && $TIMEOUTPROG 30 $URLPROG -s $FILE 2>&1 || cat - badfile) | $SENDMAIL -oi -t
 
     :0 E
     | cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
@@ -183,7 +183,7 @@ SUBJECT=| formail -cXSubject
     FILE="$MATCH"
 
     :0 Wah
-    | ($TIMEOUTPROG 30 perl $URLPROG -t http://google.com/search?num=50\&q=$FILE 2>&1 || cat badfile) | $SENDMAIL -oi -t
+    | (cat - && $TIMEOUTPROG 30 $URLPROG -t http://google.com/search?num=50\&q=$FILE 2>&1 || cat badfile) | $SENDMAIL -oi -t
 
     :0 E
     | cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t

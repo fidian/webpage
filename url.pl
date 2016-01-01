@@ -25,8 +25,6 @@ my ($FileName, $QuotaStuff, $OldCD, $ua, $req, $res);
 my ($Results, $Config, $Subject, $UserData, $MaxSize);
 my ($fh);
 
-print $_ while (<STDIN>);
-
 if ($Parameters !~ /^[a-z]+:\/\//i)
 {
     $Parameters = "http://$Parameters" if ($Parameters =~ /^www/i);
