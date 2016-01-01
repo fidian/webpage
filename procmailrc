@@ -105,7 +105,7 @@ SUBJECT=| formail -cXSubject
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw
-    * ^Subject: send \/[^ ]*
+    * SUBJECT ?? ^Subject: send \/[^ ]*
     | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
     FILE="$MATCH"
 
@@ -123,7 +123,7 @@ SUBJECT=| formail -cXSubject
     MAILDIR=$WEBPAGEDIR/fileserver
     
     :0 fhw
-    * ^Subject: url \/[^ ]*
+    * SUBJECT ?? ^Subject: url \/[^ ]*
     | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
     FILE="$MATCH"
 
@@ -141,7 +141,7 @@ SUBJECT=| formail -cXSubject
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw
-    * ^Subject: source \/[^ ]*
+    * SUBJECT ?? ^Subject: source \/[^ ]*
     | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
     FILE="$MATCH"
 
@@ -159,7 +159,7 @@ SUBJECT=| formail -cXSubject
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw
-    * ^Subject: webpage \/[^ ]*
+    * SUBJECT ?? ^Subject: webpage \/[^ ]*
     | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
     FILE="$MATCH"
     LOG="    Webpage: $FILE$NEWLINE"
@@ -178,7 +178,7 @@ SUBJECT=| formail -cXSubject
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw
-    * ^Subject: search \/[^ ]*
+    * SUBJECT ?? ^Subject: search \/[^ ]*
     | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
     FILE="$MATCH"
 
@@ -196,7 +196,7 @@ SUBJECT=| formail -cXSubject
     MAILDIR=$WEBPAGEDIR
 
     :0 fhw
-    * ^Subject: debug( [^ ]*)?
+    * SUBJECT ?? ^Subject: debug( [^ ]*)?
     | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
     PARAM="$MATCH"
 
