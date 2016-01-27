@@ -7,7 +7,7 @@ This is an email to web gateway service.  It uses fetchmail to receive emails, p
 Setup
 -----
 
-1. Ensure you have wget, zip, mime-construct, fetchmail, procmail and a working SMTP server (I am using msmtp).
+1. Ensure you have wget, zip, mime-construct, fetchmail, procmail, wkhtmltopdf, xvfb and a working SMTP server (I am using msmtp).
 2. Install LWP, LWP::Protocol::https and HTML::TokeParser via CPAN so Perl can run `url.pl`.  On Ubuntu you need libnet-ssleay-perl and libcrypt-ssleay-perl for Net:SSLeay to work.
 3. Test `url.pl` and ensure it works.  You may need to update `Text::Wrap`.
 
