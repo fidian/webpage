@@ -31,9 +31,6 @@ Para buscar en Internet con Google (devuelve 50 partidos ) :
 A: webpage@rumkin.com
 Asunto : search <PALABRAS>
 
-Reemplazar palabras clave con los términos de búsqueda con espacio convertido
-en + ' s (es decir, "escuela secundaria" -> "escuela+secundaria") .
-
 No se puede descargar archivos binarios directamente con el capturador de
 página web. Por lo tanto , no trate de descargar archivos MP3 o archivos de
 archivos zip . Asimismo, la "webpage" se limita a 1Mb para evitar abusos.

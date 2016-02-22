@@ -178,12 +178,12 @@ SUBJECT=| formail -cXSubject
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw
-    * SUBJECT ?? ^Subject: search \/[^ ]*
+    * SUBJECT ?? ^Subject: search \/.*
     | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
     FILE="$MATCH"
 
     :0 Wah
-    | (cat - && $TIMEOUTPROG 30 $URLPROG -t http://google.com/search?num=50\&q=$FILE 2>&1 || cat badfile) | $SENDMAIL -oi -t
+    | (cat - && $TIMEOUTPROG 30 $URLPROG -t "http://google.com/search?num=50\&q=$FILE" 2>&1 || cat badfile) | $SENDMAIL -oi -t
 
     :0 E
     | cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t

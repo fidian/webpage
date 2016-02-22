@@ -31,9 +31,6 @@ To search the internet with Google (returns 50 matches):
 To: webpage@rumkin.com
 Subject: search <KEYWORDS>
 
-Replace keywords with your search terms with spaces converted to +'s
-(ie. "high school" --> high+school).
-
 
 You can not download binary files directly with the webpage grabber.  So,
 don't try to download MP3 files or Zip file archives.  Also, the "webpage"
