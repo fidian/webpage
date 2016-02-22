@@ -13,11 +13,11 @@ Setup
 
         echo -n "" | ./url.pl -t https://www.yahoo.com
 
-4. Copy `fetchmailrc-template` to `fetchmail.
-5. Change permissions on `fetchmail`: `chmod 0600 fetchmail`
+4. Copy `fetchmailrc-template` to `fetchmailrc`.
+5. Change permissions on `fetchmailrc`: `chmod 0600 fetchmailrc`
 6. Run `touch logs/fetchmail.log` to create the initial log file.
 7. Install a MTA.  I've configured postfix to relay to another SMTP server.  If you do the same, you may want to investigate adding `message_size_limit = 20480000` to your config.
-8. Test by running `fetchmail -f ~/webpage/fetchmail`
+8. Test by running `fetchmail -f ~/webpage/fetchmailrc`
 9. Once that works, set up a cron job to run fetchmail.
 
         @reboot fetchmail -f webpage/fetchmailrc > /dev/null 2>&1
