@@ -11,6 +11,7 @@ URLPROG=$WEBPAGEDIR/url.pl
 WEBPAGEPROG=$WEBPAGEDIR/get_page
 TIMEOUTPROG=$WEBPAGEDIR/timeout
 DEBUGPROG=$WEBPAGEDIR/debug
+SUBJECTPROG=$WEBPAGEDIR/format-subject
 NEWLINE="
 "
 LOG=$NEWLINE
@@ -33,11 +34,11 @@ LOG="    From: $WHOFROM$NEWLINE"
 # Store "may be encoded" Subject: into SUBJECT
 :0 h
 * ^Subject:.*=\?
-SUBJECT=| formail -cXSubject: | perl -MEncode -pe '$_=encode("iso-8859-1",decode("MIME-Header",$_))'
+SUBJECT=| formail -cXSubject: | perl -MEncode -pe '$_=encode("iso-8859-1",decode("MIME-Header",$_))' | $SUBJECTPROG
 
 # Store all remaining cases of Subject: into SUBJECT
 :0 hE
-SUBJECT=| formail -cXSubject
+SUBJECT=| formail -cXSubject | $SUBJECTPROG
 
 # Log the subject
 :0 Wc

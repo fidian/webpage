@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+    echo "Specify a from address as the argument"
+    exit 1
+fi
+
+cd ~
+procmail -f "$1" webpage/procmailrc <<EOF
+To: webpage@rumkin.com
+From: $1
+Subject:   send   	 help    
+
+This is my body of the message - careful with spacing on Subject
+EOF

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Convert tabs to spaces and compress spaces
+perl -pe '$_=~s/[ \t]+/ /g'
