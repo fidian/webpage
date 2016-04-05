@@ -1,3 +1,7 @@
 fetchmailrc
-logs/fetchmail.log
-logs/procmail.log
+logs/fetchmail.log*
+logs/procmail.log*
+fileserver/d_*
+fileserver/f_*
+fileserver/pdf_*
+wkhtmltox/

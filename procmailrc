@@ -9,6 +9,7 @@ MYNAME="Webpage Grabber"
 MYEMAIL=webpage@rumkin.com
 URLPROG=$WEBPAGEDIR/url.pl
 WEBPAGEPROG=$WEBPAGEDIR/get_page
+PDFPROG=$WEBPAGEDIR/get_pdf
 TIMEOUTPROG=$WEBPAGEDIR/timeout
 DEBUGPROG=$WEBPAGEDIR/debug
 SUBJECTPROG=$WEBPAGEDIR/format-subject
@@ -167,6 +168,25 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 
     :0 Wah
     | ($WEBPAGEPROG $FILE 2>&1) | $SENDMAIL -oi -t
+
+    :0 E
+    | cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
+}
+
+:0 W
+* SUBJECT ?? ^Subject: pdf [0-9A-Za-z_:/.\]*
+{
+    LOG="    Rule: Pdf$NEWLINE"
+    MAILDIR=$WEBPAGEDIR/fileserver
+
+    :0 fhw
+    * SUBJECT ?? ^Subject: pdf \/[^ ]*
+    | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
+    FILE="$MATCH"
+    LOG="    Webpage: $FILE$NEWLINE"
+
+    :0 Wah
+    | $PDFPROG $FILE | tee /tmp/crap | $SENDMAIL -oi -t
 
     :0 E
     | cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t

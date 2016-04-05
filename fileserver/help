@@ -16,31 +16,35 @@ webpage@rumkin.com and in the subject put: send index
 
 To request a web page that is converted to text:
 To: webpage@rumkin.com
-Subject: url <ADDRESS>
+Subject: url http://example.com/
 
 To request the HTML source of a web page:
 To: webpage@rumkin.com
-Subject: source <ADDRESS>
+Subject: source http://example.com/
 
-To ask for a web page and all of the associated images, etc. (up to 1Mb)
+To ask for a web page and all of the associated images, etc. (up to 5Mb)
 in one zip file:
 To: webpage@rumkin.com
-Subject: webpage <ADDRESS>
+Subject: webpage http://example.com/
 
 To search the internet with Google (returns 50 matches):
 To: webpage@rumkin.com
-Subject: search <KEYWORDS>
+Subject: search http://example.com/
+
+If you want a PDF of a given webpage:
+To: webpage@rumkin.com
+Subject: pdf http://example.com/
 
 
 You can not download binary files directly with the webpage grabber.  So,
 don't try to download MP3 files or Zip file archives.  Also, the "webpage"
-command is limited to 1Mb to prevent abuse.
-
+command is limited to 5Mb to prevent abuse.
 
 If you want to get the web page in your email so that you can view it, see
 the images, and maybe click the links, you are out of luck.  This web page
 grabber can not do that.  The closest thing is the "webpage" command, which
-will grab up to 1Mb of stuff and zip it all up for you.
+will grab up to 5Mb of stuff and zip it all up for you.  The next closest
+is requesting the file as a PDF.
 
 There are other services out there that do a similar task.  One list has not
 been updated since 2003, but shows several servers:

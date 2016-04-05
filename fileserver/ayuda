@@ -16,29 +16,35 @@ webpage@rumkin.com y en el asunto poner : send index
 
 Para solicitar una página web que se convierte en texto :
 A: webpage@rumkin.com
-Asunto: url <DIRECCIÓN>
+Asunto: url http://example.com/
 
 Para solicitar el código fuente HTML de una página web :
 A: webpage@rumkin.com
-Asunto: source <DIRECCIÓN>
+Asunto: source http://example.com/
 
 Para solicitar una página web y todas las imágenes asociadas , etc (hasta
-1Mb ) en un archivo zip :
+5Mb ) en un archivo zip :
 A: webpage@rumkin.com
-Asunto: webpage <DIRECCIÓN>
+Asunto: webpage http://example.com/
 
 Para buscar en Internet con Google (devuelve 50 partidos ) :
 A: webpage@rumkin.com
-Asunto : search <PALABRAS>
+Asunto: search http://example.com/
+
+Si desea un PDF de una página web:
+A: webpage@rumkin.com
+Asunto: pdf http://example.com/
+
 
 No se puede descargar archivos binarios directamente con el capturador de
 página web. Por lo tanto , no trate de descargar archivos MP3 o archivos de
-archivos zip . Asimismo, la "webpage" se limita a 1Mb para evitar abusos.
+archivos zip . Asimismo, la "webpage" se limita a 5Mb para evitar abusos.
 
 Si desea obtener la página web en su correo electrónico para que pueda
 verla , es hora de utilizar nuestros comandos .Usted no puede acceder a los
 links de la paginas.  Lo más parecido es el comando "webpage", que se
-agarra hasta 1Mb de cosas y comprimir todo por usted.
+agarra hasta 5Mb de cosas y comprimir todo por usted. También puede
+ solicitar a la página web como un archivo PDF.
 
 
 Póngase en contacto con el administrador del servicio: webpage-admin@rumkin.com
