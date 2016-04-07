@@ -2,7 +2,7 @@ HELP
 
 The purpose of the webpage grabber is to allow users who only have
 e-mail access to the internet to retreive resources from the internet.
-This is acheived by an automatic response robot which parses e-mail
+This is achieved by an automatic response robot which parses e-mail
 messages and sends back the requested documents. This program has the
 ability to:
 
