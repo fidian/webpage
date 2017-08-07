@@ -1,50 +1,67 @@
 AYUDA
 
-El propósito de la página web capturador es permitir a los usuarios que sólo
-tienen acceso al correo electrónico a la internet es posible recuperar los
-recursos de Internet.  Esto se archiva por un robot de respuesta automática
-que analiza el correo electrónico de mensajes y envía los documentos
-solicitados. Este programa tiene la capacidad para :
-
-        1 . Buscar en la Internet
-        2 . Descargar páginas web
-        3 . Enviar archivos almacenados localmente
+El propósito de Webpage Grabber (en español: Capturador de Páginas Web) es
+permitirle a los usuarios que sólo poseen acceso a correo electrónico, obtener
+recursos y contenido de Internet. Lo anterior se logra mediante un proceso en
+el cual un BOT de respuesta automática, analiza los correos electrónicos y
+responde enviando los contenidos o archivos solicitados. Este programa es apto
+para:
 
 
-Para obtener un índice de todos los archivos disponibles Enviar un mensaje a
-webpage@rumkin.com y en el asunto poner : send index
+1. Buscar en Internet
+2. Acceder a páginas web
+3. Enviar archivos almacenados localmente
 
-Para solicitar una página web que se convierte en texto :
-A: webpage@rumkin.com
-Asunto: url http://example.com/
+Para obtener un catálogo de todos los archivos disponibles envíe un correo electrónico a webpage@rumkin.com y, en el asunto, coloque: send index
 
-Para solicitar el código fuente HTML de una página web :
-A: webpage@rumkin.com
-Asunto: source http://example.com/
-
-Para solicitar una página web y todas las imágenes asociadas , etc (hasta
-5Mb ) en un archivo zip :
-A: webpage@rumkin.com
-Asunto: webpage http://example.com/
-
-Para buscar en Internet con Google (devuelve 50 partidos ) :
-A: webpage@rumkin.com
-Asunto: search http://example.com/
-
-Si desea un PDF de una página web:
-A: webpage@rumkin.com
-Asunto: pdf http://example.com/
+Para solicitar una página web convertida a texto plano o texto sin formato:
+Para: webpage@rumkin.com
+Asunto: url http://estoesunejemplo.com/
 
 
-No se puede descargar archivos binarios directamente con el capturador de
-página web. Por lo tanto , no trate de descargar archivos MP3 o archivos de
-archivos zip . Asimismo, la "webpage" se limita a 5Mb para evitar abusos.
+Para solicitar el código fuente del archivo HTML:
+Para: webpage@rumkin.com
+Asunto: source http://estoesunejemplo.com/
 
-Si desea obtener la página web en su correo electrónico para que pueda
-verla , es hora de utilizar nuestros comandos .Usted no puede acceder a los
-links de la paginas.  Lo más parecido es el comando "webpage", que se
-agarra hasta 5Mb de cosas y comprimir todo por usted. También puede
- solicitar a la página web como un archivo PDF.
+Para solicitar una página web y todas las imágenes asociadas, etc. en un archivo zip (Hasta 5Mb):
+Para: webpage@rumkin.com
+Asunto: webpage http://estoesunejemplo.com/
+
+Para buscar en Internet, con Google (Devuelve 50 resultados):
+Para: webpage@rumkin.com
+Asunto: search http://estoesunejemplo.com/
+
+Si deseas un pdf de una página web:
+Para: webpage@rumkin.com
+Asunto: pdf http://estoesunejemplo.com/
 
 
-Póngase en contacto con el administrador del servicio: webpage-admin@rumkin.com
+No puede descargar archivos binarios directamente con el Webpage. No intente
+descargar archivos MP3 o Zip So, don't try to download MP3 files or Zip file
+archives.  El comando "webpage" está limitado a 5Mb para evitar abusos.
+
+Si desea obtener una página web en su email de manera que pueda ver las
+imágenes o, tal vez, clickear los enlaces que en ella aparecen, lamento decirle
+que no tiene, usted, toda la suerte. Este capturador de páginas web no puede
+hacer eso. Lo más cercano a ello es el comando "webpage" el cual capturará
+hasta 5Mb de información comprimiéndolo todo, en un archivo zip, para usted. Lo
+siguiente más cercano lo puede lograr solicitando la página web como un archivo
+PDF.
+
+Desde luego, si usted desea ver el sitio al que lo llevaría un enlace, puede
+colocarlo en el asunto de un nuevo email y solicitarlo mediante el mismo
+procedimiento.
+
+
+Hay otros servicios, ajenos a este, que hacen  tareas semejantes. La lista no
+ha sido actualizada desde 2003, pero muestra algunos servidores:
+
+http://www.expita.com/servers.html
+
+También puede revisar:
+
+http://vancouver-webpages.com/webgate/ para información en Webgate (un tipo
+similar de servidor).
+
+
+Contacte al administrador del servicio: webpage-admin@rumkin.com
