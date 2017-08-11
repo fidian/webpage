@@ -12,7 +12,8 @@ para:
 2. Acceder a páginas web
 3. Enviar archivos almacenados localmente
 
-Para obtener un catálogo de todos los archivos disponibles envíe un correo electrónico a webpage@rumkin.com y, en el asunto, coloque: send index
+Para obtener un catálogo de todos los archivos disponibles envíe un correo
+electrónico a webpage@rumkin.com y, en el asunto, coloque: send index
 
 Para solicitar una página web convertida a texto plano o texto sin formato:
 Para: webpage@rumkin.com
@@ -23,7 +24,8 @@ Para solicitar el código fuente del archivo HTML:
 Para: webpage@rumkin.com
 Asunto: source http://estoesunejemplo.com/
 
-Para solicitar una página web y todas las imágenes asociadas, etc. en un archivo zip (Hasta 5Mb):
+Para solicitar una página web y todas las imágenes asociadas, etc. en un
+archivo zip (Hasta 5Mb):
 Para: webpage@rumkin.com
 Asunto: webpage http://estoesunejemplo.com/
 
@@ -37,8 +39,8 @@ Asunto: pdf http://estoesunejemplo.com/
 
 
 No puede descargar archivos binarios directamente con el Webpage. No intente
-descargar archivos MP3 o Zip So, don't try to download MP3 files or Zip file
-archives.  El comando "webpage" está limitado a 5Mb para evitar abusos.
+descargar archivos MP3 o Zip.  El comando "webpage" está limitado a 5Mb para
+evitar abusos.
 
 Si desea obtener una página web en su email de manera que pueda ver las
 imágenes o, tal vez, clickear los enlaces que en ella aparecen, lamento decirle
@@ -52,16 +54,10 @@ Desde luego, si usted desea ver el sitio al que lo llevaría un enlace, puede
 colocarlo en el asunto de un nuevo email y solicitarlo mediante el mismo
 procedimiento.
 
-
-Hay otros servicios, ajenos a este, que hacen  tareas semejantes. La lista no
-ha sido actualizada desde 2003, pero muestra algunos servidores:
-
-http://www.expita.com/servers.html
-
-También puede revisar:
-
-http://vancouver-webpages.com/webgate/ para información en Webgate (un tipo
-similar de servidor).
-
+Hay otros servicios, ajenos a este, que hacen tareas semejantes. La lista no ha
+sido actualizada desde 2003, pero muestra algunos servidores:
+    http://www.expita.com/servers.html
+También puede revisar http://vancouver-webpages.com/webgate/ para información
+en Webgate (un tipo similar de servidor).
 
 Contacte al administrador del servicio: webpage-admin@rumkin.com
