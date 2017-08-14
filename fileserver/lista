@@ -1,0 +1,50 @@
+CATÁLOGO DE ARCHIVOS
+
+Para solicitar los archivos usted deberá colocar el comando adecuado en el
+ASUNTO del correo electrónico. No lo coloque en otro lugar diferente del
+ASUNTO. No funcionará si lo coloca en su tostadora, lavamanos, o un encabezado
+de correo electrónico distinto del ASUNTO.
+
+Sintaxis para solicitar archivos:
+        Para: webpage@rumkin.com
+        Asunto: send <FILENAME>
+        (donde <FILENAME> es el nombre del archivo)
+
+        !! Sus sugerencias para archivos son bienvenidas. !!
+
+Comentarios, Problemas o Sugerencias?
+Email: webpage-admin@rumkin.com
+
+ -------------------------------------------------------------------
+
+badfile         El mensaje de error. :-)
+
+bdecod          Boogies Decoder decodificará archivos B64, C91, UUE, y XXE.
+                Este archivo es enviado con codificación UU. Ver "muud" para
+                un decodificador.
+
+ayuda           Archivo de Ayuda.
+
+lista           Este archivo.
+
+netrun31        Programa de DOS para codificar archivos COM o EXE como texto
+                ejecutable. Estos archivos son seguros para para enviar a
+                través de correo electrónico. Este archivo es enviado con
+                codificación UU. Ver "muud" para un decodificador.
+
+netsend1        Programa de DOS para codificar cualquier archivo como un
+                archivo de texto ejecutable. Cuando es ejecutado, el programa
+                genera el archivo original. Este archivo es enviado con
+                codificación UU. Ver "muud" para un decodificador.
+
+muud            Mini-decodificador de UU. Es un archivo de texto ejecutable!
+                Guárdalo con tu editor de texto favorito y tendrás un programa
+                funcional. Úsalo hasta que obtengas un mejor decodificador,
+                como bdecod.
+
+procmailrc      El archivo procmailrc para este bot. Si usted no sabe qué es
+                esto, probablemente no lo quiera.
+
+uudecode        Proporciona un decodificador, bastante pequeño, en forma de
+                texto; el cual puede convertir cualquier archivo con
+                codificación UU en un programa auto-decodificable.
