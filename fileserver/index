@@ -13,18 +13,18 @@ Syntax for retrieving files:
         !! Suggestions for files are welcomed. !!
 
 Comments, Problems or Suggestions?
-Email webpage-admin@rumkin.com
+Email: webpage-admin@rumkin.com
 
  -------------------------------------------------------------------
 
-badfile         The standard error message :-)
+badfile         The standard error message. :-)
 
 bdecod          Boogies Decoder will decode B64, C91, UUE, and XXE files
                 Sent UUEncoded.  See "muud" for a decoder.
 
 help            Help File for this bot.
 
-index           This file
+index           This file.
 
 netrun31        DOS program to encode COM or EXE files as executable text
                 files, safe to send over email.  This is sent UUEncoded.
