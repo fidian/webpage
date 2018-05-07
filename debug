@@ -21,21 +21,31 @@ $(df -h)
 EOF
 
 if ! $IS_ADMIN; then
-    # Show recent logs but filter email addresses
-    echo "Last Few Requests"
-    echo "-----------------"
-    echo ""
-    tail -n 100 logs/procmail.log | sed 's/@.*/@.../g'
-elif [[ -z "$PARAM" ]]; then
-    # Admin: Show unfiltered recent logs
-    echo "Last Few Requests"
-    echo "-----------------"
-    echo ""
-    tail -n 400 logs/procmail.log
+    echo "You're not an admin, so I am not showing mail logs."
 else
     # Admin: Find logs matching a query
     echo "Recent Results For $PARAM"
     echo "------------------------------------------------------------------"
     echo ""
     grep --before-context=1 --after-context=4 "^    From:.*$PARAM" logs/procmail.log
+    echo ""
+    echo ""
+    echo "Mail logs"
+    echo "------------------------------------------------------------------"
+    echo ""
+    logs=(/var/log/mail.log.1 /var/log/mail.log)
+    ids=()
+
+    while read id; do
+        ids[${#ids[@]}]=$id
+    done < <(grep "$1" "${logs[@]}" | sed 's/.*: \([0-9A-F]*\): to=.*/\1/')
+
+    if [[ "${#ids[@]}" -eq 0 ]]; then
+        echo "No mail logs found."
+    else
+        for id in "${ids[@]}"; do
+            grep -h "$id" "${logs[@]}"
+            echo "-----"
+        done
+    fi
 fi
