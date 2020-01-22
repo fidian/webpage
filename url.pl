@@ -50,7 +50,7 @@ $ua = LWP::UserAgent->new(
     }
 );
 $ua->agent("WebPage/1.0 " . $ua->agent);
-$ua->max_size(1024 * 256);
+$ua->max_size(1024 * 4096);
 $req = new HTTP::Request GET => $Parameters;
 $res = $ua->request($req, $FileName);
 if (! $res->is_success)
