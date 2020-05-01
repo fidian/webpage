@@ -60,10 +60,10 @@ if (! $res->is_success)
     exit();
 }
 
-if ($res->content_type !~ /^text\//i)
+if ($res->content_type !~ /^text\//i && $res->content_type !~ /^application\/json$/)
 {
     print "Sorry, this file has an invalid content type.\n";
-    print "Only HTML and plain text files are allowed.\n";
+    print "Only HTML, text, and JSON files are allowed.\n";
     print "The Content-Type provided is:  " . $res->content_type . "\n";
     exit();
 }
