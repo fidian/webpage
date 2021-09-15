@@ -46,11 +46,5 @@ grabber can not do that.  The closest thing is the "webpage" command, which
 will grab up to 5Mb of stuff and zip it all up for you.  The next closest
 is requesting the file as a PDF.
 
-There are other services out there that do a similar task.  One list has not
-been updated since 2003, but shows several servers:
-    http://www.expita.com/servers.html
-Also, you could check out http://vancouver-webpages.com/webgate/ for
-information on Webgate (a similar type of server).
-
 
 Contact the service administrator:  webpage-admin@rumkin.com
