@@ -41,6 +41,10 @@ muud            Mini UUDecoder.  This is an executable text file!  Save this
 procmailrc      The procmailrc file for this bot.  If you don't know
                 what this is, you probably don't want it.
 
+similar-services
+                A list of any other email gateways I know about. Please
+                let me know of ones I do not have listed.
+
 uudecode        Forum post that provides a very short decoder in text form,
                 which can change any UUEncoded file into a self-decoding
                 program.
