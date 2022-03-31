@@ -3,8 +3,8 @@
 TIMER="$1"
 shift
 
-# Disable monitor mode
-set +m
+# Ensure subshells get their own process ID
+set -m
 
 # The program to execute
 (
@@ -14,10 +14,13 @@ PROGRAM_PID=$!
 
 # The timer
 (
-    sleep $TIMER
-    kill "$PROGRAM_PID"
+    sleep "$TIMER"
+    kill -- -"$PROGRAM_PID"
 ) > /dev/null 2>&1 &
 TIMER_PID=$!
+
+# Disable monitor mode
+set -m
 
 # Delay until one of the processes finish.
 # Avoid "wait -n" because older bash doesn't support it

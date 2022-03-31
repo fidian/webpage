@@ -35,3 +35,9 @@ This is broken into three phases so you can do a chunk at a time.
 3. Once that works, set up a cron job to run fetchmail.
 
         @reboot fetchmail -f webpage/fetchmailrc > /dev/null 2>&1
+
+
+Configuration
+-------------
+
+Create a file called `banned` and add email addresses in there when you want users to be banned from using the system.

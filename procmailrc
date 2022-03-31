@@ -22,6 +22,8 @@ WHOFROM=`formail -xFrom: \
     | sed -e 's/  */ /g' \
     | sed -e 's/^[ ]*//g' -e 's/[ ]*$//g'`
 LOG="    From: $WHOFROM$NEWLINE"
+BANFILE=$WEBPAGEDIR/banned
+FROMLIST=`formail -xFrom: | sed -e 's/ *(.*)//; s/>.*//; s/.*[:<] *//'`
 
 
 # Magic code to decode escaped subject lines for our friendly international
@@ -94,6 +96,22 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
     LOG="    Rule: Noreply (/dev/null)$NEWLINE"
     :0
     /dev/null
+}
+
+
+# Drop email from banned addresses
+# https://pr0.uk/linux/bash/script/spam/mailserver/procmail/2016/11/27/filter-a-list-of-addresses-with-procmail.html
+:0 W
+* ? fgrep -qxis "$FROMLIST" "$BANFILE"
+{
+    LOG="    Banned$NEWLINE"
+    MAILDIR=$WEBPAGEDIR/fileserver
+
+    :0 fhw
+    | formail -ra "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
+
+    :0 h
+    | cat - banned-response 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
 }
 
 
