@@ -9,7 +9,7 @@ cd ~
 procmail -f "$1" webpage/procmailrc <<EOF
 To: webpage@rumkin.com
 From: "Test User" <$1>
-Subject: pdf http://rumkin.com
+Subject: pdf yahoo.com
 
 This is my body of the message
 EOF

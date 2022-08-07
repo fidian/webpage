@@ -16,13 +16,14 @@ SUBJECTPROG=$WEBPAGEDIR/format-subject
 NEWLINE="
 "
 LOG=$NEWLINE
-LOG="    Date: `date`$NEWLINE"
+LOG="Date: `date`$NEWLINE"
 WHOFROM=`formail -xFrom: \
     | expand \
     | sed -e 's/  */ /g' \
     | sed -e 's/^[ ]*//g' -e 's/[ ]*$//g'`
-LOG="    From: $WHOFROM$NEWLINE"
-
+LOG="From: $WHOFROM$NEWLINE"
+BANFILE=$WEBPAGEDIR/banned
+FROMLIST=`formail -xFrom: | sed -e 's/ *(.*)//; s/>.*//; s/.*[:<] *//'`
 
 # Magic code to decode escaped subject lines for our friendly international
 # users!  It is in two parts.  First, assign the SUBJECT variable a decoded
@@ -45,7 +46,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 Wc
 * SUBJECT ?? ^Subject: \/.*
 {
-    LOG="    Subject: $MATCH$NEWLINE"
+    LOG="Subject: $MATCH$NEWLINE"
     :0
     /dev/null
 }
@@ -57,9 +58,9 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 # that mailing lists use.
 
 :0 W
-* ^X-Loop: $\MYEMAIL
+*$ ^X-Loop: $MYEMAIL
 {
-    LOG="    Rule: Loop (/dev/null)$NEWLINE"
+    LOG="Rule: Loop (/dev/null)$NEWLINE"
     :0
     /dev/null
 }
@@ -67,7 +68,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 W
 * SUBJECT ?? ^Subject:.*bulk email.*
 {
-    LOG="    Rule: Bulk Email (/dev/null)$NEWLINE"
+    LOG="Rule: Bulk Email (/dev/null)$NEWLINE"
     :0
     /dev/null
 }
@@ -75,7 +76,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 W
 * SUBJECT ?? ^Subject:.*Re:.*
 {
-    LOG="    Rule: Reply (/dev/null)$NEWLINE"
+    LOG="Rule: Reply (/dev/null)$NEWLINE"
     :0
     /dev/null
 }
@@ -83,7 +84,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 W
 * ^FROM_DAEMON
 {
-    LOG="    Rule: From Daemon (/dev/null)$NEWLINE"
+    LOG="Rule: From Daemon (/dev/null)$NEWLINE"
     :0
     /dev/null
 }
@@ -91,9 +92,25 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 W
 * ^Reply-[Tt]o:.*noreply@.*
 {
-    LOG="    Rule: Noreply (/dev/null)$NEWLINE"
+    LOG="Rule: Noreply (/dev/null)$NEWLINE"
     :0
     /dev/null
+}
+
+
+# Drop email from banned addresses
+# https://pr0.uk/linux/bash/script/spam/mailserver/procmail/2016/11/27/filter-a-list-of-addresses-with-procmail.html
+:0 W
+* ? fgrep -qxis "$FROMLIST" "$BANFILE"
+{
+    LOG="Banned$NEWLINE"
+    MAILDIR=$WEBPAGEDIR/fileserver
+
+    :0 fhw
+    | formail -ra "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
+    
+    :0 h
+    | cat - banned-response 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
 }
 
 
@@ -103,7 +120,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 * SUBJECT ?? ^Subject: send [0-9a-z]
 * SUBJECT ?? !^Subject: send .*(/|\.\.).*
 {
-    LOG="    Rule: Send$NEWLINE"
+    LOG="Rule: Send$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw
@@ -121,7 +138,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 W
 * SUBJECT ?? ^Subject: url [0-9A-Za-z_:/.\]*
 {
-    LOG="    Rule: Url$NEWLINE"
+    LOG="Rule: Url$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
     
     :0 fhw
@@ -139,7 +156,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 W
 * SUBJECT ?? ^Subject: source [0-9A-Za-z_:/.\]*
 {
-    LOG="    Rule: Source$NEWLINE"
+    LOG="Rule: Source$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw
@@ -157,14 +174,14 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 W
 * SUBJECT ?? ^Subject: webpage [0-9A-Za-z_:/.\]*
 {
-    LOG="    Rule: Webpage$NEWLINE"
+    LOG="Rule: Webpage$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw
     * SUBJECT ?? ^Subject: webpage \/[^ ]*
     | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
     FILE="$MATCH"
-    LOG="    Webpage: $FILE$NEWLINE"
+    LOG="Webpage: $FILE$NEWLINE"
 
     :0 Wah
     | ($WEBPAGEPROG $FILE 2>&1) | $SENDMAIL -oi -t
@@ -176,14 +193,14 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 W
 * SUBJECT ?? ^Subject: pdf [0-9A-Za-z_:/.\]*
 {
-    LOG="    Rule: Pdf$NEWLINE"
+    LOG="Rule: Pdf$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw
     * SUBJECT ?? ^Subject: pdf \/[^ ]*
     | formail -rA "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
     FILE="$MATCH"
-    LOG="    Webpage: $FILE$NEWLINE"
+    LOG="Webpage: $FILE$NEWLINE"
 
     :0 Wah
     | $PDFPROG $FILE | tee /tmp/crap | $SENDMAIL -oi -t
@@ -195,7 +212,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 W
 * SUBJECT ?? ^Subject: search [-0-9A-Za-z_:/\.\\\+]*
 {
-    LOG="    Rule: Search$NEWLINE"
+    LOG="Rule: Search$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw
@@ -213,7 +230,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 W
 * SUBJECT ?? ^Subject: debug( [^ ]*)?
 {
-    LOG="    Rule: Debug$NEWLINE"
+    LOG="Rule: Debug$NEWLINE"
     MAILDIR=$WEBPAGEDIR
 
     :0 fhw
@@ -230,7 +247,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 
 :0 W
 {
-    LOG="    Rule: Unhandled Command$NEWLINE"
+    LOG="Rule: Unhandled Command$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw

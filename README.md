@@ -13,12 +13,12 @@ This is broken into three phases so you can do a chunk at a time.
 ### Prerequisites
 
 1. Ensure you have wget, zip, mime-construct, fetchmail, procmail, xvfb and a working SMTP server (I am using msmtp).
-2. Install LWP, LWP::Protocol::https and HTML::TokeParser via CPAN so Perl can run `url.pl`.  On Ubuntu you need libnet-ssleay-perl and libcrypt-ssleay-perl for Net:SSLeay to work.
+2. Install LWP, LWP::Protocol::https and HTML::TokeParser via CPAN so Perl can run `url.pl`.  On Ubuntu you need libnet-ssleay-perl and libcrypt-ssleay-perl for Net::SSLeay to work.
 3. Test `url.pl` and ensure it works.  You may need to update `Text::Wrap`.
 
         echo -n "" | ./url.pl -t https://www.yahoo.com
 
-4. Install wkhtmltopdf so you have at least version 0.12.x.  You can download statically compiled binaries from their site.  The scripts expect you to download and extract the archive so that there's a `wkhtmltox/` folder at the root of this software.
+4. Install wkhtmltopdf so you have at least version 0.12.x in the path.
 
 
 ### Set up Fetchmail
@@ -30,7 +30,7 @@ This is broken into three phases so you can do a chunk at a time.
 
 ### Set up Outgoing Mail
 
-1. Install a MTA.  I've configured postfix to relay to another SMTP server.  If you do the same, you may want to investigate adding `message_size_limit = 20480000` to your config.
+1. Install a MTA.  I've configured msmtp to relay to another SMTP server.  If you use procmail to relay, you may want to investigate adding `message_size_limit = 20480000` to your config.
 2. Run the test files in `tests/`.
 3. Once that works, set up a cron job to run fetchmail.
 

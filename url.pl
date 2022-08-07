@@ -9,9 +9,9 @@
 #
 # Mode is "-s" for source, "-t" for processed text.
 
+use File::Temp;
 use HTML::TokeParser;
 use IO::File;
-use POSIX qw(tmpnam);
 use LWP;
 use LWP::UserAgent;
 use URI::URL;
@@ -21,7 +21,7 @@ use strict;
 
 my ($Parameters) = $ARGV[1];
 my ($Mode) = $ARGV[0];
-my ($FileName, $QuotaStuff, $OldCD, $ua, $req, $res);
+my ($FileName, $QuotaStuff, $OldCD, $dir, $ua, $req, $res);
 my ($Results, $Config, $Subject, $UserData, $MaxSize);
 my ($fh);
 
@@ -38,12 +38,7 @@ if ($Parameters !~ /^http:\/\//i && $Parameters !~ /^ftp:\/\//i &&
     $Parameters = 'http://' . $Parameters;
 }
 
-do { $FileName = tmpnam() }
-  until $fh = IO::File->new($FileName, O_RDWR|O_CREAT|O_EXCL);
-$fh->close;
-
-END { unlink($FileName) or die "Couldn't unlink $FileName : $!" }
-
+$dir = File::Temp->newdir(); # Automatically create new, temp directory and cleaned up at termination
 $ua = LWP::UserAgent->new(
     ssl_opts => {
         verify_hostname => 0
@@ -52,6 +47,7 @@ $ua = LWP::UserAgent->new(
 $ua->agent("WebPage/1.0 " . $ua->agent);
 $ua->max_size(1024 * 4096);
 $req = new HTTP::Request GET => $Parameters;
+$FileName = $dir . '/request';
 $res = $ua->request($req, $FileName);
 if (! $res->is_success)
 {

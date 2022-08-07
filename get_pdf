@@ -3,7 +3,6 @@
 # Pipe formmail headers into this
 #
 # Normally this runs in the fileserver folder
-wkhtmltopdf=../wkhtmltox/bin/wkhtmltopdf
 
 DIR="pdf_$$"
 mkdir "$DIR"
@@ -14,7 +13,7 @@ OUTPUT="$DIR/webpage.pdf"
 # time instead of waiting for SIGUSR1 because Xvfb doesn't apparently send
 # SIGUSR1 when started from the forked procmail/fetchmail.  Couldn't
 # figure it out.
-../timeout 30 ../xvfb-run -a -e /dev/stderr -s "-screen 0 1024x768x24" "$wkhtmltopdf" "$1" "$OUTPUT" > "$DIR/stdout" 2> "$DIR/stderr"
+../timeout 30 ../xvfb-run -a -s "-screen 0 1024x768x24" "wkhtmltopdf" "$1" "$OUTPUT" > "$DIR/stdout" 2> "$DIR/stderr"
 
 if [[ -s "$OUTPUT" ]]; then
     mime-construct --output --type application/pdf --attachment webpage.pdf --file "$OUTPUT"
