@@ -1,45 +1,6 @@
 #!/bin/bash
 
-getPids() {
-    PGID=$(ps --pid $$ -o pgid --noheader)
-    USER=$(id -n -u)
-    PIDS=$(ps -u "$USER" -o pgid,pid --noheader)
-    echo "$PIDS" | grep "^$PGID " | awk -e '{print $2}'
-}
-
 TIMER="$1"
 shift
 
-# Enable monitor mode. Subshells are exected in their own process groups.
-set -m
-
-(
-	PIDS=$(getPids)
-
-	# Execute the program
-	"$@" &
-	PROGRAM_PID=$!
-
-        # Set up the timer
-	(
-        	sleep "$TIMER"
-		TARGETS=$(getPids)
-		TARGETS=$(echo -e "$TARGETS\n$PIDS\n$PIDS" | sort | uniq -u)
-		kill -9 $TARGETS $$
-	) &
-	TIMER_PID=$!
-
-	# Delay until program finishes. This could happen normally or via the timeout.
-        # Avoid "wait -n" because older bash doesn't support it.
-        # This also hides a "Terminated" message
-        wait "$PROGRAM_PID" > /dev/null 2>&1
-        RESULT=$?
-
-        # Kill the timeout process if it isn't already killed
-        kill -9 "$TIMER_PID" > /dev/null 2>&1
-
-        # Clean up, hide the "Terminated" message, prevent bash from dying
-        wait "$TIMER_PID" > /dev/null 2>&1
-
-        exit "$RESULT"
-)
+/bin/timeout --kill-after=5 "$TIMER" ${@+"$@"}
