@@ -27,25 +27,5 @@ else
     echo "Recent Results For $PARAM"
     echo "------------------------------------------------------------------"
     echo ""
-    grep --before-context=1 --after-context=4 "^    From:.*$PARAM" logs/procmail.log
-    echo ""
-    echo ""
-    echo "Mail logs"
-    echo "------------------------------------------------------------------"
-    echo ""
-    logs=(/var/log/mail.log.1 /var/log/mail.log)
-    ids=()
-
-    while read id; do
-        ids[${#ids[@]}]=$id
-    done < <(grep "$1" "${logs[@]}" | sed 's/.*: \([0-9A-F]*\): to=.*/\1/')
-
-    if [[ "${#ids[@]}" -eq 0 ]]; then
-        echo "No mail logs found."
-    else
-        for id in "${ids[@]}"; do
-            grep -h "$id" "${logs[@]}"
-            echo "-----"
-        done
-    fi
+    grep --before-context=1 --after-context=4 "^From:.*$PARAM" logs/procmail.log
 fi
