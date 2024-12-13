@@ -119,7 +119,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 :0 W
 * ^TO_webpage@rumkin\.com
 {
-    LOG="Rule: Redirect to new email"
+    LOG="Rule: Redirect to new email$NEWLINE"
     MAILDIR=$WEBPAGEDIR/fileserver
 
     :0 fhw
