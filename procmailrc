@@ -117,6 +117,19 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
 # And here are the rules for each of the available commands.
 
 :0 W
+* ^TO_webpage@rumkin\.com
+{
+    LOG="Rule: Redirect to new email"
+    MAILDIR=$WEBPAGEDIR/fileserver
+
+    :0 fhw
+    | formail -ra "X-Loop: $MYEMAIL" -i "From: $MYNAME <$MYEMAIL>"
+    
+    :0 h
+    | cat - changed-email 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
+}
+
+:0 W
 * SUBJECT ?? ^Subject: send [0-9a-z]
 * SUBJECT ?? !^Subject: send .*(/|\.\.).*
 {
