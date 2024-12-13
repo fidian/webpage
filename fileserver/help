@@ -12,27 +12,27 @@ ability to:
 
 
 To get an index of all the files available send a message to
-webpage@rumkin.com and in the subject put: send index
+webpage@fidian.com and in the subject put: send index
 
 To request a web page that is converted to text:
-To: webpage@rumkin.com
+To: webpage@fidian.com
 Subject: url http://example.com/
 
 To request the HTML source of a web page:
-To: webpage@rumkin.com
+To: webpage@fidian.com
 Subject: source http://example.com/
 
 To ask for a web page and all of the associated images, etc. (up to 5Mb)
 in one zip file:
-To: webpage@rumkin.com
+To: webpage@fidian.com
 Subject: webpage http://example.com/
 
 To search the internet with Google (returns 50 matches):
-To: webpage@rumkin.com
+To: webpage@fidian.com
 Subject: search http://example.com/
 
 If you want a PDF of a given webpage:
-To: webpage@rumkin.com
+To: webpage@fidian.com
 Subject: pdf http://example.com/
 
 
@@ -47,4 +47,4 @@ will grab up to 5Mb of stuff and zip it all up for you.  The next closest
 is requesting the file as a PDF.
 
 
-Contact the service administrator:  webpage-admin@rumkin.com
+Contact the service administrator:  webpage-admin@fidian.com
