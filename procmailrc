@@ -234,7 +234,7 @@ SUBJECT=| formail -cXSubject | $SUBJECTPROG
     FILE="$MATCH"
 
     :0 Wah
-    | (cat - && $TIMEOUTPROG 30 $URLPROG -t "https://lite.duckduckgo.com/lite/?q=$FILE" 2>&1 || cat badfile) | $SENDMAIL -oi -t
+    | (cat - && $TIMEOUTPROG 30 $URLPROG -t "https://html.duckduckgo.com/html/?q=$FILE" 2>&1 || cat badfile) | $SENDMAIL -oi -t
 
     :0 E
     | cat - badfile 2>&1 | $SENDMAIL -f $MYEMAIL -oi -t
